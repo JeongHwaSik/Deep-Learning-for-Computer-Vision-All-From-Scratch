@@ -57,6 +57,17 @@ Big thanks to Michigan Online and Justin Johnson for creating and sharing the fa
 <img width="1000" alt="Screenshot 2024-11-24 at 2 42 54 PM" src="https://github.com/user-attachments/assets/fa16bf20-906b-4b5d-94fa-00459c834c24">
 <img width="1000" alt="Screenshot 2024-11-24 at 2 43 01 PM" src="https://github.com/user-attachments/assets/2b9b354d-7acb-479e-ba2d-1813e838037c">
 
+### A4-2. [Transformer](https://github.com/JeongHwaSik/Deep-Learning-for-Computer-Vision-All-From-Scratch/blob/main/A4/Transformers.ipynb) 
+**(Note: This lecture was conducted in 2019, prior to the publication of the Vision Transformer (ViT) paper.)**
+
+ For Transformer training, I will use a toy dataset designed for text-based calculations. Here are a few examples from the dataset:
+
+- Expression: BOS NEGATIVE 30 subtract NEGATIVE 34 EOS, Output: BOS POSITIVE 04 EOS
+
+- Expression: BOS NEGATIVE 34 add NEGATIVE 15 EOS, Output: BOS NEGATIVE 49 EOS
+
+I implemented the Transformer's attention block, multi-head attention block, encoder and decoder blocks, as well as layer normalization from scratch using torch.nn modules and achieved **73.83%** for final model accuracy. (Something wrong with my code. Debug here ☹️)
+
 
 
 
