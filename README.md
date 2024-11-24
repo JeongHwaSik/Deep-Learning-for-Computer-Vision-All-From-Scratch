@@ -36,14 +36,27 @@ Big thanks to Michigan Online and Justin Johnson for creating and sharing the fa
 ## 🐔 A3. Fully Connected Neural Networks & Convolutional Neural Networks
 
 ### A3-1. [Fully Connected Networks](https://github.com/JeongHwaSik/Deep-Learning-for-Computer-Vision-All-From-Scratch/blob/main/A3/fully_connected_networks.ipynb)
- Implement forward and backward functions for Linear layers, ReLU activation, and DropOut from scratch (NOT using torch.nn modules). We built two layer fully connected layers with ReLU activations and it using different optimization algorithms: SGD, RMSProp, and Adam.
+ Implement forward and backward functions for Linear layers, ReLU activation, and DropOut from scratch (NOT using torch.nn modules). I built two layer fully connected layers with ReLU activations and it using different optimization algorithms: SGD, RMSProp, and Adam.
 
 <img width="1079" alt="Screenshot 2024-11-24 at 2 12 21 PM" src="https://github.com/user-attachments/assets/63d3b181-1512-48a6-aa44-80526531da60">
 
 ### A3-2. [Convolutional Neural Networks](https://github.com/JeongHwaSik/Deep-Learning-for-Computer-Vision-All-From-Scratch/blob/main/A3/convolutional_networks.ipynb)
- Implement forward and backward functions for Convolution layers, MaxPooling, and Batch Normalization from scratch (NOT using torch.nn modules). We built three-layer convolutional networks and each layer consists of Convolution-BatchNorm-ReLU-MaxPool. We add another technique called 'Kaiming Intialization' to stabilize model training at the beginning. Using CIFAR-10 dataset, we achieved **71.9%** top-1 accuracy.
+ Implement forward and backward functions for Convolution layers, MaxPooling, and Batch Normalization from scratch (NOT using torch.nn modules). I built three-layer convolutional networks and each layer consists of Convolution-BatchNorm-ReLU-MaxPool. We add another technique called 'Kaiming Intialization' to stabilize model training at the beginning. Using CIFAR-10 dataset, we achieved **71.9%** top-1 accuracy.
 
  <img width="397" alt="Screenshot 2024-11-24 at 2 21 14 PM" src="https://github.com/user-attachments/assets/1eb52f6f-f577-4af4-811c-6933e7f57a6e">
+
+
+</br>
+
+## 🐔 A4. Recurrent Neural Network & Transformer
+
+### A4-1. [RNN & LSTM Image Captioning](https://github.com/JeongHwaSik/Deep-Learning-for-Computer-Vision-All-From-Scratch/blob/main/A4/rnn_lstm_captioning.ipynb)
+ The COCO Captions dataset includes 80,000 training images and 40,000 validation images, each paired with 5 captions provided by workers on Amazon Mechanical Turk. The figure below illustrates examples from the dataset. For this image captioning task, I implemented vanilla RNN and LSTM models, as they are well-suited for processing sequential text data as input.
+
+<img width="1000" alt="Screenshot 2024-11-24 at 2 35 39 PM" src="https://github.com/user-attachments/assets/1819e24f-3414-4b43-b854-5a1cecedc2dd">
+<img width="1000" alt="Screenshot 2024-11-24 at 2 42 54 PM" src="https://github.com/user-attachments/assets/fa16bf20-906b-4b5d-94fa-00459c834c24">
+<img width="1000" alt="Screenshot 2024-11-24 at 2 43 01 PM" src="https://github.com/user-attachments/assets/2b9b354d-7acb-479e-ba2d-1813e838037c">
+
 
 
 
