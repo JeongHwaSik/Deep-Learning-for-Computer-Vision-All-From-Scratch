@@ -7,13 +7,10 @@ Big thanks to Michigan Online and Justin Johnson for creating and sharing the fa
 
 ## 🐣 A1. [K-Nearest Neighbor](https://github.com/JeongHwaSik/Deep-Learning-for-Computer-Vision-All-From-Scratch/blob/main/A1/knn.ipynb)
  The K-NN algorithm was used to train the CIFAR-10 dataset from scratch for image classification. Cross-validation was performed to find the optimal hyperparameters, and testing was conducted. As a result, a top-1 accuracy of **33.86%** was achieved.
-
-<img width="423" alt="Screenshot 2024-11-24 at 1 34 24 PM" src="https://github.com/user-attachments/assets/85e38861-d83a-4cbe-8ae7-a4f934eb1e77">
-
+ 
+<img width="1076" alt="Screenshot 2024-11-24 at 2 58 47 PM" src="https://github.com/user-attachments/assets/e87950f4-72c7-4a48-90ce-795e6e03730e">
 
 <br>
-
-
 </br>
 
 ## 🐦 A2. Linear Classifier
