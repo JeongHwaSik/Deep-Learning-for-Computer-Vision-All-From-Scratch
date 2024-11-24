@@ -8,11 +8,7 @@ Big thanks to Michigan Online and Justin Johnson for creating and sharing the fa
 ## 🐣 A1. [K-Nearest Neighbor](https://github.com/JeongHwaSik/Deep-Learning-for-Computer-Vision-All-From-Scratch/blob/main/A1/knn.ipynb)
  The K-NN algorithm was used to train the CIFAR-10 dataset from scratch for image classification. Cross-validation was performed to find the optimal hyperparameters, and testing was conducted. As a result, a top-1 accuracy of **33.86%** was achieved.
 
-#### - Visualization of K-NN image classifier
-<img width="500" alt="Screenshot 2024-11-23 at 8 41 48 PM" src="https://github.com/user-attachments/assets/e8333694-3696-423b-9441-2146f1b2a03a">
-
-#### - Cross-validation for optimized hyper-parameter(k)
-<img width="500" alt="Screenshot 2024-11-23 at 8 42 20 PM" src="https://github.com/user-attachments/assets/5a8cb103-0def-4d27-b6f7-d072c0a0e4d0">
+<img width="423" alt="Screenshot 2024-11-24 at 1 34 24 PM" src="https://github.com/user-attachments/assets/85e38861-d83a-4cbe-8ae7-a4f934eb1e77">
 
 
 <br>
@@ -25,16 +21,16 @@ Big thanks to Michigan Online and Justin Johnson for creating and sharing the fa
 ### A2-1. [Linear Classifiers](https://github.com/JeongHwaSik/Deep-Learning-for-Computer-Vision-All-From-Scratch/blob/main/A2/linear_classifier.ipynb)
  A single-layer neural network is trained from scratch on the CIFAR-10 dataset for image classification. Two different loss functions, SVM loss and SoftMax loss, are used to compare their performance. SVM classifier achieves 9.06% for validation set while SoftMax classifier achieves **39.69%**.
 
-#### - SVM classifier weight visualization
-<img width="800" alt="Screenshot 2024-11-24 at 12 41 04 PM" src="https://github.com/user-attachments/assets/c21d769d-e9ec-46d1-9e47-62ee06aa0a7b">
-
-#### - SoftMax classifier weight visualization
-<img width="800" alt="Screenshot 2024-11-24 at 12 41 46 PM" src="https://github.com/user-attachments/assets/73e0019b-c247-482d-95cc-15322f2e83ab">
+<img width="970" alt="Screenshot 2024-11-24 at 1 34 09 PM" src="https://github.com/user-attachments/assets/ee534daa-7899-4c92-ab4c-82563b25b045">
 
 
 ### A2-2. [Two Layer Neural Network](https://github.com/JeongHwaSik/Deep-Learning-for-Computer-Vision-All-From-Scratch/blob/main/A2/two_layer_net.ipynb)
- A two layer neural network is trained from scratch on the CIFAR-10 dataset for image classification. Experiments were conducted with neural networks using various hidden dimensions (2, 8, 16, 32), and a validation performance of **52.32%** was achieved when the hidden dimension was set to 128.
+ A two layer neural network is trained from scratch on the CIFAR-10 dataset for image classification. Experiments were conducted with neural networks using different hyper-parameters (hidden dimension, regularization term, learning rate) and found out that the optimal validation performance of **52.32%** was achieved!
+ 
+<img width="505" alt="Screenshot 2024-11-24 at 1 34 35 PM" src="https://github.com/user-attachments/assets/a0c06d42-34f6-4d76-b0ef-9a18e7da0333">
 
- #### - Weight visualization
- <img width="650" alt="Screenshot 2024-11-24 at 12 56 45 PM" src="https://github.com/user-attachments/assets/d753d0a4-0814-45a6-9079-82b8637f14fa">
+<img width="1006" alt="Screenshot 2024-11-24 at 1 52 07 PM" src="https://github.com/user-attachments/assets/a510d9f5-67f8-4006-a663-80918230efc9">
+
+
+
 
