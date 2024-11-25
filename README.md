@@ -66,6 +66,37 @@ Big thanks to Michigan Online and Justin Johnson for creating and sharing the fa
 I implemented the Transformer's attention block, multi-head attention block, encoder and decoder blocks, as well as layer normalization from scratch using torch.nn modules and achieved **73.83%** for final model accuracy. (Something wrong with my code. Debug here ☹️)
 
 
+</br>
+
+## 🐓 A5. Object Detection
+
+### A5-1. [One-Stage Object Detector](https://github.com/JeongHwaSik/Deep-Learning-for-Computer-Vision-All-From-Scratch/blob/main/A5/one_stage_detector.ipynb)
+ I implemented [FCOS:Fully-Convolutional One-Stage Object Detector](https://arxiv.org/pdf/1904.01355) from scratch as a one-stage object detection model and trained it on the PASCAL VOC 2007 dataset. This dataset is relatively small, containing 20 categories with annotated bounding boxes. Unlike classification tasks, mean Average Precision (mAP) is used as the validation metric for evaluation. (Something wrong with my code. Debug here ☹️)
+
+<img width="1037" alt="Screenshot 2024-11-26 at 12 26 17 AM" src="https://github.com/user-attachments/assets/dce876af-5728-42f6-abce-b40556422cd2">
+
+### A5-2. [Two-Stage Object Detector](https://github.com/JeongHwaSik/Deep-Learning-for-Computer-Vision-All-From-Scratch/blob/main/A5/two_stage_detector.ipynb)
+ I implemented a two-stage object detector based on [Faster R-CNN](https://arxiv.org/pdf/1506.01497), which comprises two main modules: the Region Proposal Network (RPN) and Fast R-CNN. As with previous section in 5-2, I used the PASCAL VOC 2007 dataset and evaluated performance using mean Average Precision (mAP) as the metric. (Something wrong with my code. Debug here ☹️)
+
+
+</br>
+
+## 🍗 A6. Generative Models & Visualization
+
+### A6-1. [Variational AutoEncoder (VAE)](https://github.com/JeongHwaSik/Deep-Learning-for-Computer-Vision-All-From-Scratch/blob/main/A6/variational_autoencoders.ipynb)
+
+<img width="787" alt="Screenshot 2024-11-26 at 12 37 59 AM" src="https://github.com/user-attachments/assets/22bd47d3-137f-411d-8259-c5e73647dc90">
+
+### A6-2. [Generative Adversarial Networks (GAN)](https://github.com/JeongHwaSik/Deep-Learning-for-Computer-Vision-All-From-Scratch/blob/main/A6/generative_adversarial_networks.ipynb)
+
+<img width="1329" alt="Screenshot 2024-11-26 at 12 47 43 AM" src="https://github.com/user-attachments/assets/94cfdb7e-328b-460a-b79d-4fbe4e962b6b">
+
+</br>
+</br>
+
+<img width="827" alt="Screenshot 2024-11-26 at 12 53 55 AM" src="https://github.com/user-attachments/assets/fadbf7c1-1119-4680-aec2-234e003a7c77">
+
+
 
 
 
