@@ -7,11 +7,13 @@ walk through the notebooks and you will find instructions on *when* to implement
 from typing import Dict, Tuple
 
 import torch
+import torchvision
 from torch import nn
 from torch.cuda.random import seed
 from torch.nn import functional as F
 from torchvision import models
 from torchvision.models import feature_extraction
+from torchvision.ops.boxes import box_iou
 
 
 def hello_common():
@@ -181,8 +183,8 @@ def get_fpn_location_coords(
         ######################################################################
         # Replace "pass" statement with your code
         _, _, level_height, level_weight = feat_shape
-        x = (torch.arange(0, level_height)+0.5) * level_stride
-        y = (torch.arange(0, level_weight)+0.5) * level_stride
+        x = (torch.arange(0, level_height, device=device)+0.5) * level_stride
+        y = (torch.arange(0, level_weight, device=device)+0.5) * level_stride
 
         xv, yv = torch.meshgrid(x, y, indexing='ij')
 
@@ -227,44 +229,18 @@ def nms(boxes: torch.Tensor, scores: torch.Tensor, iou_threshold: float = 0.5):
     # github.com/pytorch/vision/blob/main/torchvision/csrc/ops/cpu/nms_kernel.cpp
     #############################################################################
     # Replace "pass" statement with your code
+    device = scores.device
 
-    _, indices = scores.sort(descending=True)
-    indices = list(indices) # convert to python default list
-    
-    keep_indices = []
-
-    while len(indices) > 0:
-      highest_idx = indices.pop(0)
-
-      if len(indices) == 0:
-        keep_indices.append(highest_idx)
-        break
-
-      keep_indices.append(highest_idx)
-
-      highest = boxes[highest_idx, :]
-      # (right - left) * (bottom - top)
-      highest_area = (highest[3] - highest[1]) * (highest[2] - highest[0])
-
-      for idx in indices:
-        selected = boxes[idx, :]
-        selected_area = (selected[3] - selected[1]) * (selected[2] - selected[0])
-        # need to think of negative value
-        width = max(min(highest[3], selected[3]) - max(highest[1], selected[1]), 0)
-        height = max(min(highest[2], selected[2]) - max(highest[0], selected[0]), 0)
-        intersection = width * height
-
-        total_area = highest_area + selected_area - intersection
-        
-        iou = intersection / total_area
-        if iou > iou_threshold:
-          # remove selected
-          indices.remove(idx)
-        else:
-          indices.remove(idx)
-          keep_indices.append(idx)
-      
-    keep = torch.tensor(keep_indices, dtype=torch.long)
+    order = torch.argsort(-scores)
+    indices = torch.arange(boxes.shape[0], device=device)
+    keep = torch.ones_like(indices, dtype=torch.bool)
+    for i in indices:
+        if keep[i]:
+            bbox = boxes[order[i]]
+            iou = box_iou(bbox[None, ...], (boxes[order[i + 1:]]) * keep[i + 1:][..., None])
+            overlapped = torch.nonzero(iou > iou_threshold)
+            keep[overlapped + i + 1] = 0
+    return order[keep]
   
     #############################################################################
     #                              END OF YOUR CODE                             #
@@ -292,5 +268,5 @@ def class_spec_nms(
     max_coordinate = boxes.max()
     offsets = class_ids.to(boxes) * (max_coordinate + torch.tensor(1).to(boxes))
     boxes_for_nms = boxes + offsets[:, None]
-    keep = nms(boxes_for_nms, scores, iou_threshold)
+    keep = torchvision.ops.nms(boxes_for_nms, scores, iou_threshold) # TODO: compare with my nms implementation
     return keep

@@ -214,18 +214,12 @@ def fcos_match_locations_to_gt(
 
         x, y = centers.unsqueeze(dim=2).unbind(dim=1)
         x0, y0, x1, y1 = gt_boxes[:, :4].unsqueeze(dim=0).unbind(dim=2)
-        x = x.to('cuda')
-        y = y.to('cuda')
-        x0 = x0.to('cuda')
-        y0 = y0.to('cuda')
-        x1 = x1.to('cuda')
-        y1 = y1.to('cuda')
 
-        pairwise_dist = torch.stack([x - x0, y - y0, x1 - x, y1 - y], dim=2)
+        pairwise_dist = torch.stack([x - x0, y - y0, x1 - x, y1 - y], dim=2) # [l, t, r, b] -> (H*W, N, 4)
 
         # Pairwise distance between every feature center and GT box edges:
         # shape: (num_gt_boxes, num_centers_this_level, 4)
-        pairwise_dist = pairwise_dist.permute(1, 0, 2)
+        pairwise_dist = pairwise_dist.permute(1, 0, 2) # (N, H*W, 4)
 
         # The original FCOS anchor matching rule: anchor point must be inside GT.
         match_matrix = pairwise_dist.min(dim=2).values > 0
@@ -242,9 +236,7 @@ def fcos_match_locations_to_gt(
         )
 
         # Match the GT box with minimum area, if there are multiple GT matches.
-        gt_areas = (gt_boxes[:, 2] - gt_boxes[:, 0]) * (
-            gt_boxes[:, 3] - gt_boxes[:, 1]
-        )
+        gt_areas = (gt_boxes[:, 2] - gt_boxes[:, 0]) * (gt_boxes[:, 3] - gt_boxes[:, 1])
 
         # Get matches and their labels using match quality matrix.
         match_matrix = match_matrix.to(torch.float32)
@@ -301,7 +293,6 @@ def fcos_get_deltas_from_locations(
 
     # Replace "pass" statement with your code
     xc, yc = locations[:, 0], locations[:, 1]
-    xc, yc = xc.to('cuda'), yc.to('cuda')
 
     x1, y1, x2, y2 = gt_boxes[:, 0], gt_boxes[:, 1], gt_boxes[:, 2], gt_boxes[:, 3]
 
@@ -355,6 +346,8 @@ def fcos_apply_deltas_to_locations(
     # box. Make sure to clip them to zero.                                   #
     ##########################################################################
     # Replace "pass" statement with your code
+    deltas = torch.clamp(deltas, min=0.0)
+
     left, top, right, bottom = deltas[:, 0], deltas[:, 1], deltas[:, 2], deltas[:, 3]
     xc, yc = locations[:, 0], locations[:, 1]
     x1 = xc - left * stride
@@ -437,7 +430,7 @@ class FCOS(nn.Module):
 
         # Averaging factor for training loss; EMA of foreground locations.
         # STUDENTS: See its use in `forward` when you implement losses.
-        self._normalizer = 150  # per image
+        self._normalizer = 200  # per image
 
     def forward(
         self,
@@ -474,6 +467,7 @@ class FCOS(nn.Module):
         # Feel free to delete this line: (but keep variable names same)
         pred_cls_logits, pred_boxreg_deltas, pred_ctr_logits = None, None, None
         # Replace "pass" statement with your code
+        device = images.device
 
         # returns {'p3', 'p4', 'p5'}
         feats_per_fpn_level = self.backbone(images)
@@ -502,7 +496,7 @@ class FCOS(nn.Module):
 
         # absolute co-ordinates `(xc, yc)` in input image
         # returns {'p3': image coordinate (7 * 7, 2), 'p4': ~, 'p5': ~}
-        locations_per_fpn_level = get_fpn_location_coords(shape_per_fpn_level, strides_per_fpn_level)
+        locations_per_fpn_level = get_fpn_location_coords(shape_per_fpn_level, strides_per_fpn_level, device=device)
   
         ######################################################################
         #                           END OF YOUR CODE                         #
@@ -605,18 +599,18 @@ class FCOS(nn.Module):
         
         gt_cls = matched_gt_boxes[:,:,4] # (B, 1029)
 
-        valid_gt = (gt_cls >= 0) # (B, 1029)
+        bg_idx = (gt_cls < 0.0) # (B, N)
 
         valid_gt_cls = gt_cls.clone().to(torch.int64) # (B, 1029)
-        valid_gt_cls[~valid_gt] = 0
+        valid_gt_cls[bg_idx] = 0 # temporarily set to 0
         
         # make into one_hot vector
-        gt_cls_onehot.scatter_(2, valid_gt_cls.unsqueeze(-1), 1) # (B, 1029, num_classes)
-        gt_cls_onehot = gt_cls_onehot * valid_gt.unsqueeze(-1) # -1 (background) to zero
+        gt_cls_onehot = torch.zeros(batch_size, num_locations, num_classes, device=device)
+        gt_cls_onehot.scatter_(2, valid_gt_cls.unsqueeze(-1), 1)  # (B, N, num_class)
+        gt_cls_onehot[bg_idx] = 0 # background should be all zeros in one-hot vector
 
         loss_cls = sigmoid_focal_loss(pred_cls_logits, gt_cls_onehot, reduction='none')
-        
-      
+
         ######################################################################
         #                            END OF YOUR CODE                        #
         ######################################################################
@@ -624,7 +618,7 @@ class FCOS(nn.Module):
         # In training code, we simply add these three and call `.backward()`
         return {
             "loss_cls": loss_cls.sum() / (self._normalizer * images.shape[0]),
-            "loss_box": loss_box.sum() / (self._normalizer * images.shape[0]),
+            "loss_box": loss_box.sum() / (self._normalizer * 4 * images.shape[0]),
             "loss_ctr": loss_ctr.sum() / (self._normalizer * images.shape[0]),
         }
 
@@ -772,3 +766,4 @@ class FCOS(nn.Module):
             pred_classes_all_levels,
             pred_scores_all_levels,
         )
+

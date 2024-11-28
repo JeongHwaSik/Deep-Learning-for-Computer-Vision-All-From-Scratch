@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JupyterPersistentConnectionParameters">
+    <option name="moduleParameters">
+      <map>
+        <entry key="$PROJECT_DIR$/../../Desktop - /Deep-Learning-for-Computer-Vision-All-From-Scratch/.idea/Deep-Learning-for-Computer-Vision-All-From-Scratch.iml">
+          <value>
+            <JupyterConnectionParameters>
+              <option name="managed" value="true" />
+              <option name="sdkName" value="Remote Python 3.8.12 (sftp://y5ryan@202.30.30.19:3424/opt/conda/bin/python3)" />
+            </JupyterConnectionParameters>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
