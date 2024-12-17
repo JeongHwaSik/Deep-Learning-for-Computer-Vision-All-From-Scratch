@@ -48,7 +48,17 @@ Big thanks to Michigan Online and Justin Johnson for creating and sharing the fa
 ## 🐔 A4. Recurrent Neural Network & Transformer
 
 ### A4-1. [RNN & LSTM Image Captioning](https://github.com/JeongHwaSik/Deep-Learning-for-Computer-Vision-All-From-Scratch/blob/main/A4/rnn_lstm_captioning.ipynb)
- The COCO Captions dataset includes 80,000 training images and 40,000 validation images, each paired with 5 captions provided by workers on Amazon Mechanical Turk. The figure below illustrates examples from the dataset. For this image captioning task, I implemented vanilla RNN and LSTM models, as they are well-suited for processing sequential text data as input.
+- RNN: RNN stands for Recurrent Neural Network, designed specifically to handle sequential data. Unlike tasks such as image classification, 
+where inputs (images) have a fixed size, language-related tasks like machine translation involve input sequences of varying lengths. 
+To address this challenge, RNNs were introduced.
+
+- [LSTM](https://www.bioinf.jku.at/publications/older/2604.pdf): LSTM stands for Long Short-Term Memory, a variant of RNNs. One of the major limitations of RNNs is the gradient vanishing/exploding problem during training. 
+While gradient clipping can help mitigate the exploding gradient issue, resolving the vanishing gradient problem proved far more challenging. 
+To overcome this, LSTM architecture was proposed, which improves gradient flow—similar to the effect of residual connections in [ResNet](). 
+LSTMs excel at preserving long-term dependencies, making them more effective than standard RNNs for many tasks.
+(Note: [GRU](https://www.mt-archive.net/10/SSST-2014-Cho.pdf), or Gated Recurrent Units, is another popular RNN variant similar to LSTM but with a simpler architecture.)
+ 
+The COCO Captions dataset includes 80,000 training images and 40,000 validation images, each paired with 5 captions provided by workers on Amazon Mechanical Turk. The figure below illustrates examples from the dataset. For this image captioning task, I implemented vanilla RNN and LSTM models, as they are well-suited for processing sequential text data as input.
 
 <img width="1000" alt="Screenshot 2024-11-24 at 2 35 39 PM" src="https://github.com/user-attachments/assets/1819e24f-3414-4b43-b854-5a1cecedc2dd">
 <img width="1000" alt="Screenshot 2024-11-24 at 2 42 54 PM" src="https://github.com/user-attachments/assets/fa16bf20-906b-4b5d-94fa-00459c834c24">
