@@ -1,31 +1,34 @@
 # Deep Learning for Computer Vision 🔥All From Scratch🔥
 
 ## Notice
-Big thanks to Michigan Online and Justin Johnson for creating and sharing the fantastic [Deep Learning for Computer Vision (EECS598)](https://web.eecs.umich.edu/~justincj/teaching/eecs498/WI2022/) course online! This repository is fully licensed under EECS598.
+Big thanks to Michigan Online, Andrej Karpathy, and Justin Johnson for creating and sharing the fantastic [Deep Learning for Computer Vision (EECS598)](https://web.eecs.umich.edu/~justincj/teaching/eecs498/WI2022/) course online! This repository is fully licensed under EECS598.
 
 <br>
 </br>
 
-## A1. K-Nearest Neighbor
- The K-NN algorithm was used to train the CIFAR-10 dataset from scratch for image classification. 
- Cross-validation was performed to find the optimal hyperparameters, and testing was conducted. 
- As a result, a top-1 accuracy of **33.86%** was achieved.
+## A1. K-Nearest Neighbor Classifier
+The K-NN algorithm was used to train the CIFAR-10 dataset from scratch for image classification.
+Cross-validation was performed to find the optimal hyperparameters, and testing was conducted. 
+As a result, a top-1 accuracy of **33.86%** was achieved for K-NN classifier with k=10.
+
+The figure on the left illustrates how to select the optimal hyperparameter k using cross-validation, while the figure on the right demonstrates how the K-NN algorithm operates when k = 5; a similar process applies to other values of k.
  
 <img width="1200" alt="Screenshot 2024-12-25 at 11 42 12 PM" src="https://github.com/user-attachments/assets/7d0c493d-2a18-4674-bd79-e8c1d19b14e3" />
 
-See [🔥here🔥](https://github.com/JeongHwaSik/Deep-Learning-for-Computer-Vision-All-From-Scratch/blob/main/A1/knn.ipynb) for more details about KNN algorithms.
+See [🔥here🔥](https://github.com/JeongHwaSik/Deep-Learning-for-Computer-Vision-All-From-Scratch/blob/main/A1/knn.ipynb) for more details about K-NN algorithms.
 
 <br>
 </br>
 
 ## A2. Linear Classifier
 
-### A2-1. Single-Layer Linear Classifiers
+### A2-1. Single-Layer Linear Neural Network
 A single-layer neural network is trained from scratch on the CIFAR-10 dataset for image classification.
 Two different loss functions, SVM loss and SoftMax loss, are used to compare their performance. 
-SVM classifier achieves 9.06% for validation set while SoftMax classifier achieves **39.69%**.
+SVM classifier achieves **38.99%** for validation set while SoftMax classifier achieves **39.69%**.
+The figure below visualizes a learned weights of the linear layer. As you can see, the weights attempt to mimic the original object but a little bit blurry.
 
-<img width="970" alt="Screenshot 2024-11-24 at 1 34 09 PM" src="https://github.com/user-attachments/assets/ee534daa-7899-4c92-ab4c-82563b25b045">
+<img width="1200" alt="Screenshot 2024-12-26 at 11 44 31 AM" src="https://github.com/user-attachments/assets/19ebdf86-40db-492b-960f-b7fdc0c50aa9" />
 
 See [🔥here🔥](https://github.com/JeongHwaSik/Deep-Learning-for-Computer-Vision-All-From-Scratch/blob/main/A2/linear_classifier.ipynb) for more details about singe linear layer network.
 
@@ -35,9 +38,13 @@ Experiments were conducted with neural networks using different hyper-parameters
  
 <img width="1200" alt="Screenshot 2024-12-26 at 12 08 33 AM" src="https://github.com/user-attachments/assets/b52daa94-8461-489d-ac7d-cc2612cd3499" />
 
-After then, I visualized the weights of the first linear layer (W1) both before and after training. Refer to the figure below.
-<img width="1006" alt="Screenshot 2024-11-24 at 1 52 07 PM" src="https://github.com/user-attachments/assets/a510d9f5-67f8-4006-a663-80918230efc9">
-See [🔥here🔥](https://github.com/JeongHwaSik/Deep-Learning-for-Computer-Vision-All-From-Scratch/blob/main/A2/two_layer_net.ipynb) for more details about two layer linear network.
+After then, I visualized the weights of the first linear layer (W1) both before and after training. Refer to the figure below. 
+Similar to the learned weights figure in A2-1, the weights here also attempt to mimic the original object but with greater clarity.
+
+<img width="1200" alt="Screenshot 2024-12-26 at 12 10 22 PM" src="https://github.com/user-attachments/assets/1181e007-3886-464b-aef1-04e87a80b13b" />
+
+
+See [🔥here🔥](https://github.com/JeongHwaSik/Deep-Learning-for-Computer-Vision-All-From-Scratch/blob/main/A2/two_layer_net.ipynb) for more details about two layer linear neural network.
 
 <br>
 </br>
@@ -45,14 +52,14 @@ See [🔥here🔥](https://github.com/JeongHwaSik/Deep-Learning-for-Computer-Vis
 ## A3. Fully Connected Neural Networks & Convolutional Neural Networks
 
 ### A3-1. [Fully Connected Networks](https://github.com/JeongHwaSik/Deep-Learning-for-Computer-Vision-All-From-Scratch/blob/main/A3/fully_connected_networks.ipynb)
- Implement forward and backward functions for Linear layers, ReLU activation, and DropOut from scratch (NOT using torch.nn modules). I built two layer fully connected layers with ReLU activations and it using different optimization algorithms: SGD, RMSProp, and Adam.
+Implement forward and backward functions for Linear layers, ReLU activation, and DropOut from scratch (NOT using torch.nn modules). I built two layer fully connected layers with ReLU activations and it using different optimization algorithms: SGD, RMSProp, and Adam.
 
 <img width="1079" alt="Screenshot 2024-11-24 at 2 12 21 PM" src="https://github.com/user-attachments/assets/63d3b181-1512-48a6-aa44-80526531da60">
 
 ### A3-2. [Convolutional Neural Networks](https://github.com/JeongHwaSik/Deep-Learning-for-Computer-Vision-All-From-Scratch/blob/main/A3/convolutional_networks.ipynb)
- Implement forward and backward functions for Convolution layers, MaxPooling, and Batch Normalization from scratch (NOT using torch.nn modules). I built three-layer convolutional networks and each layer consists of Convolution-BatchNorm-ReLU-MaxPool. We add another technique called 'Kaiming Intialization' to stabilize model training at the beginning. Using CIFAR-10 dataset, we achieved **71.9%** top-1 accuracy.
+Implement forward and backward functions for Convolution layers, MaxPooling, and Batch Normalization from scratch (NOT using torch.nn modules). I built three-layer convolutional networks and each layer consists of Convolution-BatchNorm-ReLU-MaxPool. We add another technique called 'Kaiming Intialization' to stabilize model training at the beginning. Using CIFAR-10 dataset, we achieved **71.9%** top-1 accuracy.
 
- <img width="397" alt="Screenshot 2024-11-24 at 2 21 14 PM" src="https://github.com/user-attachments/assets/1eb52f6f-f577-4af4-811c-6933e7f57a6e">
+<img width="397" alt="Screenshot 2024-11-24 at 2 21 14 PM" src="https://github.com/user-attachments/assets/1eb52f6f-f577-4af4-811c-6933e7f57a6e">
 
 <br>
 </br>
