@@ -58,8 +58,7 @@ See [🔥here🔥](https://github.com/JeongHwaSik/Deep-Learning-for-Computer-Vis
 I implemented forward and backward functions for Linear layers, ReLU activation, and DropOut from scratch without using `nn.Linear.forward()` and `loss.backward()`❗️. 
 Then, I built two fully connected linear layers with ReLU non-linearity using different optimization algorithms: SGD, RMSProp, and Adam.
 
-<img width="600" alt="Screenshot 2024-12-27 at 12 14 33 AM" src="https://github.com/user-attachments/assets/ff3ffbfa-87af-4573-a9e6-9fb979f256d1" />
-<img width="600" alt="Screenshot 2024-12-27 at 12 15 06 AM" src="https://github.com/user-attachments/assets/39c040dc-dcf4-4103-92e0-6badde89c7d5" />
+<img width="1200" alt="Screenshot 2024-12-27 at 12 37 12 AM" src="https://github.com/user-attachments/assets/8fea0929-9cbc-453c-b442-fc5b2b91bc77" />
 
 See [🔥here🔥](https://github.com/JeongHwaSik/Deep-Learning-for-Computer-Vision-All-From-Scratch/blob/main/A3/fully_connected_networks.ipynb) for more details about two layer linear networks and related experiments.
 
