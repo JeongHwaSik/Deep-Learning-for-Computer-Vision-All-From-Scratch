@@ -24,7 +24,9 @@ See [🔥here🔥](https://github.com/JeongHwaSik/Deep-Learning-for-Computer-Vis
 
 ### A2-1. Single-Layer Linear Neural Network
 A single-layer neural network is trained from scratch on the CIFAR-10 dataset for image classification.
-Two different loss functions, SVM loss and SoftMax loss, are used to compare their performance. 
+Here, I avoided using `nn.Linear.forward()` and `loss.backward()`. 
+Instead, I implemented the forward pass of the linear layer and the backward pass (manually calculating gradients using the chain rule) entirely from scratch❗️
+Two different loss functions, SVM loss and SoftMax loss, are used to compare their performance and they are also implemented from the bottom without using PyTorch modules.
 SVM classifier achieves **38.99%** for validation set while SoftMax classifier achieves **39.69%**.
 The figure below visualizes a learned weights of the linear layer. As you can see, the weights attempt to mimic the original object but a little bit blurry.
 
@@ -33,7 +35,8 @@ The figure below visualizes a learned weights of the linear layer. As you can se
 See [🔥here🔥](https://github.com/JeongHwaSik/Deep-Learning-for-Computer-Vision-All-From-Scratch/blob/main/A2/linear_classifier.ipynb) for more details about singe linear layer network.
 
 ### A2-2. Two Layer Linear Neural Network
-A two layer linear neural network is trained from scratch on the CIFAR-10 dataset for image classification. 
+A two layer linear neural network is trained from scratch on the CIFAR-10 dataset for image classification.
+As I mentioned in A2-1, I implemented the forward and backward passes of two linear layers all from scratch without using `nn.Linear.forward()` and `loss.backward()`❗️
 Experiments were conducted with neural networks using different hyper-parameters (hidden dimension for below-left figure, regularization term for upper-right figure, learning rate for upper-left figure) and found out that the optimal validation performance of **52.32%** was achieved!
  
 <img width="1200" alt="Screenshot 2024-12-26 at 12 08 33 AM" src="https://github.com/user-attachments/assets/b52daa94-8461-489d-ac7d-cc2612cd3499" />
@@ -51,15 +54,27 @@ See [🔥here🔥](https://github.com/JeongHwaSik/Deep-Learning-for-Computer-Vis
 
 ## A3. Fully Connected Neural Networks & Convolutional Neural Networks
 
-### A3-1. [Fully Connected Networks](https://github.com/JeongHwaSik/Deep-Learning-for-Computer-Vision-All-From-Scratch/blob/main/A3/fully_connected_networks.ipynb)
-Implement forward and backward functions for Linear layers, ReLU activation, and DropOut from scratch (NOT using torch.nn modules). I built two layer fully connected layers with ReLU activations and it using different optimization algorithms: SGD, RMSProp, and Adam.
+### A3-1. Fully Connected Networks
+I implemented forward and backward functions for Linear layers, ReLU activation, and DropOut from scratch without using `nn.Linear.forward()` and `loss.backward()`❗️. 
+Then, I built two fully connected linear layers with ReLU non-linearity using different optimization algorithms: SGD, RMSProp, and Adam.
 
-<img width="1079" alt="Screenshot 2024-11-24 at 2 12 21 PM" src="https://github.com/user-attachments/assets/63d3b181-1512-48a6-aa44-80526531da60">
+<img width="600" alt="Screenshot 2024-12-27 at 12 14 33 AM" src="https://github.com/user-attachments/assets/ff3ffbfa-87af-4573-a9e6-9fb979f256d1" />
+<img width="600" alt="Screenshot 2024-12-27 at 12 15 06 AM" src="https://github.com/user-attachments/assets/39c040dc-dcf4-4103-92e0-6badde89c7d5" />
 
-### A3-2. [Convolutional Neural Networks](https://github.com/JeongHwaSik/Deep-Learning-for-Computer-Vision-All-From-Scratch/blob/main/A3/convolutional_networks.ipynb)
-Implement forward and backward functions for Convolution layers, MaxPooling, and Batch Normalization from scratch (NOT using torch.nn modules). I built three-layer convolutional networks and each layer consists of Convolution-BatchNorm-ReLU-MaxPool. We add another technique called 'Kaiming Intialization' to stabilize model training at the beginning. Using CIFAR-10 dataset, we achieved **71.9%** top-1 accuracy.
+See [🔥here🔥](https://github.com/JeongHwaSik/Deep-Learning-for-Computer-Vision-All-From-Scratch/blob/main/A3/fully_connected_networks.ipynb) for more details about two layer linear networks and related experiments.
 
-<img width="397" alt="Screenshot 2024-11-24 at 2 21 14 PM" src="https://github.com/user-attachments/assets/1eb52f6f-f577-4af4-811c-6933e7f57a6e">
+### A3-2. Convolutional Neural Networks
+I implemented forward and backward functions for Convolution layers, MaxPooling, and Batch Normalization from scratch without using `nn.Conv2d.forward()` and `loss.backward()`❗️.
+I used three consecutive for-loops to implement forward and backward passes for convolution layers as convolution operates over dimensions of batch size, kernel size, and width & height.
+After then, I built three-layer convolutional networks and each layer consists of Convolution-BatchNorm-ReLU-MaxPool blocks. 
+I add another technique called [Kaiming Initialization](https://arxiv.org/pdf/1502.01852v1) to stabilize model training at the beginning. 
+Using CIFAR-10 dataset, I achieved **71.9%** top-1 accuracy.
+The figure below shows the trained image of the first convolution kernel, which is entirely different from the weights of the linear layer shown in A2. 
+It resembles edges or one-dimensional shapes.
+
+<img width="600" alt="Screenshot 2024-12-27 at 12 25 54 AM" src="https://github.com/user-attachments/assets/655c9535-5961-4713-a7a3-e6c7215b61fe" />
+
+See [🔥here🔥](https://github.com/JeongHwaSik/Deep-Learning-for-Computer-Vision-All-From-Scratch/blob/main/A3/convolutional_networks.ipynb) for more details about convolution, maxpool, and batchnorm operators.
 
 <br>
 </br>
