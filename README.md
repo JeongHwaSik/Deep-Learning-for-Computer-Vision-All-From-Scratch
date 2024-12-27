@@ -22,7 +22,7 @@ See [🔥here🔥](https://github.com/JeongHwaSik/Deep-Learning-for-Computer-Vis
 
 ## A2. Linear Classifier
 
-### A2-1. Single-Layer Linear Neural Network
+### A2-1. Single Layer Linear Neural Network
 A single-layer neural network is trained from scratch on the CIFAR-10 dataset for image classification.
 Here, I avoided using `nn.Linear.forward()` and `loss.backward()`. 
 Instead, I implemented the forward pass of the linear layer and the backward pass (manually calculating gradients using the chain rule) entirely from scratch❗️
@@ -64,14 +64,16 @@ See [🔥here🔥](https://github.com/JeongHwaSik/Deep-Learning-for-Computer-Vis
 
 ### A3-2. Convolutional Neural Networks
 I implemented forward and backward functions for Convolution layers, MaxPooling, and Batch Normalization from scratch without using `nn.Conv2d.forward()` and `loss.backward()`❗️.
-I used three consecutive for-loops to implement forward and backward passes for convolution layers as convolution operates over dimensions of batch size, kernel size, and width & height.
+(I used three consecutive for-loops to implement forward and backward passes for convolution layers as convolution operates over dimensions of batch size, kernel size, and width & height.)
 After then, I built three-layer convolutional networks and each layer consists of Convolution-BatchNorm-ReLU-MaxPool blocks. 
 I add another technique called [Kaiming Initialization](https://arxiv.org/pdf/1502.01852v1) to stabilize model training at the beginning. 
 Using CIFAR-10 dataset, I achieved **71.9%** top-1 accuracy.
 The figure below shows the trained image of the first convolution kernel, which is entirely different from the weights of the linear layer shown in A2. 
 It resembles edges or one-dimensional shapes.
 
+<p align="center">
 <img width="600" alt="Screenshot 2024-12-27 at 12 25 54 AM" src="https://github.com/user-attachments/assets/655c9535-5961-4713-a7a3-e6c7215b61fe" />
+</p>
 
 See [🔥here🔥](https://github.com/JeongHwaSik/Deep-Learning-for-Computer-Vision-All-From-Scratch/blob/main/A3/convolutional_networks.ipynb) for more details about convolution, maxpool, and batchnorm operators.
 
@@ -85,6 +87,7 @@ See [🔥here🔥](https://github.com/JeongHwaSik/Deep-Learning-for-Computer-Vis
 The COCO Captions dataset includes 80,000 training images and 40,000 validation images, each paired with 5 captions provided by workers on Amazon Mechanical Turk. 
 The figure below illustrates examples from the dataset. 
 For this image captioning task, I implemented vanilla RNN and LSTM models, as they are well-suited for processing sequential text data as input.
+I implemented those models from scratch using only `torch.nn` modules without using built-in `nn.RNN()` and `nn.LSTM()`❗️
 
 <img width="1200" alt="Screenshot 2024-11-24 at 2 35 39 PM" src="https://github.com/user-attachments/assets/1819e24f-3414-4b43-b854-5a1cecedc2dd">
 
@@ -107,13 +110,14 @@ See [🔥here🔥](https://github.com/JeongHwaSik/Deep-Learning-for-Computer-Vis
 ### A4-2. Transformer 
 **(Note: This lecture was conducted in 2019, prior to the publication of the [Vision Transformer paper](https://arxiv.org/pdf/2010.11929).)**
 
- For Transformer training, I will use a toy dataset designed for text-based calculations. Here are a few examples from the dataset:
+Based on [Attention is All You Need](https://arxiv.org/pdf/1706.03762) paper, I implemented the Transformer's Self-Attention, Multi-head Attention, Encoder and Decoder blocks, as well as Layer Normalization from scratch using `torch.nn` modules (without using `nn.MultiheadAttention()`, `nn.LayerNorm()`)❗️
+I used a simple toy dataset designed for text-based calculations. Here are a few examples from the dataset:
 
 - Expression: BOS NEGATIVE 30 subtract NEGATIVE 34 EOS, Output: BOS POSITIVE 04 EOS
 
 - Expression: BOS NEGATIVE 34 add NEGATIVE 15 EOS, Output: BOS NEGATIVE 49 EOS
 
-I implemented the Transformer's attention block, multi-head attention block, encoder and decoder blocks, as well as layer normalization from scratch using torch.nn modules and achieved **73.83%** for final model accuracy.
+By training transformer seq2seq models with those text-based calculation dataset, I could get **69.92%** accuracy for final model accuracy.
 See [🔥here🔥](https://github.com/JeongHwaSik/Deep-Learning-for-Computer-Vision-All-From-Scratch/blob/main/A4/Transformers.ipynb) for more details about transformer implementation!
 
 <br>
@@ -154,17 +158,28 @@ See [🔥here🔥](https://github.com/JeongHwaSik/Deep-Learning-for-Computer-Vis
 ### A6-1. Variational AutoEncoder (VAE)
 VAE, which stands for Variational AutoEncoder, is a type of generative model p(x) that incorporates a probabilistic approach into the traditional autoencoder. 
 Given an input x, the encoder compresses the data into a latent space z represented as q(z|x), while the decoder reconstructs x from the latent representation z as p(x|z).
-Here, I used MNIST dataset to train the VAE. See [🔥here🔥](https://github.com/JeongHwaSik/Deep-Learning-for-Computer-Vision-All-From-Scratch/blob/main/A6/variational_autoencoders.ipynb) for more details about VAE and conditional VAE.
+Here, I used MNIST dataset to train the VAE. 
+(Conditional VAE is almost the same as VAE except that it has conditional input x given y.)
+
 <img width="1200" alt="Screenshot 2024-12-25 at 11 36 10 PM" src="https://github.com/user-attachments/assets/3dc7c06f-40aa-43c9-a186-ec7d4b4021af" />
 
-### A6-2. [Generative Adversarial Networks (GAN)](https://github.com/JeongHwaSik/Deep-Learning-for-Computer-Vision-All-From-Scratch/blob/main/A6/generative_adversarial_networks.ipynb)
+ See [🔥here🔥](https://github.com/JeongHwaSik/Deep-Learning-for-Computer-Vision-All-From-Scratch/blob/main/A6/variational_autoencoders.ipynb) for more details about VAE and conditional VAE.
 
-<img width="1600" alt="Screenshot 2024-11-26 at 12 47 43 AM" src="https://github.com/user-attachments/assets/94cfdb7e-328b-460a-b79d-4fbe4e962b6b">
+### A6-2. Generative Adversarial Networks (GAN)
 
-<br>
-</br>
+GAN, which stands for Generative Adversarial Network, is a type of generative model p(x) that employs two neural networks in a competitive framework: a generator and a discriminator. 
+The generator creates synthetic data G(z) from a latent space z, while the discriminator attempts to distinguish between real data x and generated data G(z). 
+Both networks are trained simultaneously, improving each other's performance iteratively.
 
-<img width="827" alt="Screenshot 2024-11-26 at 12 53 55 AM" src="https://github.com/user-attachments/assets/fadbf7c1-1119-4680-aec2-234e003a7c77">
+Here, I implemented two types of GAN: "Deeply Convolutional GAN" and "Fully Connected GAN".
+Figure below shows generated images for DCGAN with latent interpolation.
+
+<p align="center">
+<img width="600" alt="Screenshot 2024-12-27 at 10 16 24 PM" src="https://github.com/user-attachments/assets/73bb20b8-ab47-4003-b256-e5da8ded35ea" />
+</p>
+
+See [🔥here🔥](https://github.com/JeongHwaSik/Deep-Learning-for-Computer-Vision-All-From-Scratch/blob/main/A6/generative_adversarial_networks.ipynb) for more details about GAN!
+
 
 
 
