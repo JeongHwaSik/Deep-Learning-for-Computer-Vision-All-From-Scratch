@@ -11,11 +11,15 @@
 # Variational Inference (VI)
 
 In deep learning, generative models that use a latent space are widely employed across various domains, particularly in Computer Vision for tasks like image generation and in Reinforcement Learning for action planning and decision making.
-One of the most well-known frameworks in this space is the [Variational Autoencoder (VAE)](https://arxiv.org/pdf/1312.6114) along with its extension, the [β-VAE](https://openreview.net/pdf?id=Sy2fzU9gl), which is designed to encourage disentangled representations in the latent space.
+One of the most well-known frameworks in this space is the [Variational Autoencoder (VAE)](https://arxiv.org/pdf/1312.6114) along with its extension [β-VAE](https://openreview.net/pdf?id=Sy2fzU9gl), which is designed to encourage disentangled representations in the latent space.
 At the core of the VAE framework lies a technique called **Variational Inference**, which allows for approximate Bayesian Inference in models with latent variables. 
-In this tutorial, I'll derive the objective function used in variational inference, stepping through the key mathematical ideas behind it.
+In this tutorial, we'll derive the objective function used in variational inference, stepping through the key mathematical ideas behind it.
 
-The goal of variational inference is to approximate the true data distribution $p(x)$ by learning a model distribution $p_{\theta}(x)$ using data $x$, such that the KL divergence between them is minimized. 
+<p align="center">
+    <img src="https://github.com/user-attachments/assets/e5179327-8489-48db-8247-4e8733894af5" width="50%"/>
+</p>
+
+The goal of variational inference is to approximate the true data distribution $p(x)$ (black curve in the figure above) by learning a model distribution $p_{\theta}(x)$ using data $x$ (the orange dots in the figure above), such that the KL divergence between them is minimized. 
 In other words, we want our model to generate data that is as close as possible to the real distribution.
 
 $$
@@ -45,14 +49,18 @@ $$
 \approx \frac{1}{N}\sum\limits_{x}\log{p_{\theta}(x)}
 $$
 
-Finally, we are left with the term $\log{p_{\theta}(x)}$ which we aim to maximize. However, before we can directly use $\log{p_{\theta}(x)}$, we first need to compute the marginal likelihood $p_{\theta}(x)$.
+Finally, we are left with the term $\log{p_{\theta}(x)}$ which we aim to maximize. However, before we can directly use $\log{p_{\theta}(x)}$, we first need to compute the marginal likelihood $p_{\theta}(x)$ using latent variable $z$ as shown below.
+
+<p align="center">
+    <img src="https://github.com/user-attachments/assets/b82a4c18-5fbb-4d36-bba0-a76cd1e46412" width="50%"/>
+</p>
 
 $$
 p_{\theta}(x) = \sum\limits_{z}p_{\theta}(x|z)p_{\theta}(z)
 $$
 
 However, in the equation above, we cannot directly compute the marginal likelihood by integrating over all possible values of $z$ as it is generally intractable. 
-To address this, we apply the idea of **importance sampling**, using a tractable approximate posterior $q_{\theta}(z|s)$ to focus computation on the more relevant regions of $z$-space.
+To address this, we apply the idea of **importance sampling**, using a tractable approximate posterior $q_{\theta}(z|x)$ to prior $p(z)$ to focus computation on the more relevant regions of $z$-space.
 
 
 $$
@@ -79,7 +87,7 @@ $$
 = E_{z\sim{q_{\theta}(z|x)}}[\log{p_{\theta}(x|z)}] - D_{KL}(q_{\theta}(z|x)||p_{\theta}(z))
 $$
 
-This expression is known as the **Evidence Lower Bound (ELBO)**. It serves as a tractable lower bound on the true log-likelihood $\log{p_{\theta}(x)}$, which is typically intractable to compute directly.
+This expression is known as the **Evidence Lower Bound (ELBO)**. It serves as a tractable lower bound on the true log-likelihood $\log{p(x)}$, which is typically intractable to compute directly.
 The ELBO consists of two main terms:
 
 **1. Reconstruction Term:**
@@ -89,12 +97,12 @@ E_{z\sim{q_{\theta}(z|x)}}[\log{p_{\theta}(x|z)}]
 $$
 
 This term encourages the model to accurately reconstruct the input $x$ from the latent variable $z$. If we model $p_{\theta}(x|z)$ as a Gaussian distribution $N(\mu_{x|z}, I)$, this expectation is equivalent to minimizing the Mean Squared Error (MSE) between the original input $x$ and the reconstruction $\hat{x}$.
-Alternatively, if $x\in{0,1}$ (i.e., binary data), p_{\theta}(x|z) is typically modeled as a Bernoulli distribution and the reconstruction term corresponds to the Binary Cross-Entropy (BCE) loss.
+Alternatively, if $x\in${0,1} (i.e., binary data), $p_{\theta}(x|z)$ is typically modeled as a Bernoulli distribution and the reconstruction term corresponds to the Binary Cross-Entropy (BCE) loss.
 
 **2. Regularization (or Complexity) Term:**
 
 $$
-D_{KL}(q_{\theta}(z|x)||p_{\theta}(z))
+-D_{KL}(q_{\theta}(z|x)||p_{\theta}(z))
 $$
 
 This term measures how much the approximate posterior $q_{\theta}(z|x)$ deviates from the prior distribution $p(z)$, which is usually chosen to be a standard normal $N(0, I)$. It acts as a regularizer that encourages the latent space to follow the prior distribution, enabling structured and generalizable representations.
