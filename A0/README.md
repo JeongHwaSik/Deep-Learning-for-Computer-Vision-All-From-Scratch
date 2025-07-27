@@ -56,21 +56,17 @@ To address this, we apply the idea of **importance sampling**, using a tractable
 
 
 $$
-= p_{\theta}(x) = \sum\limits_{z}p_{\theta}(x|z)p_{\theta}(z)\frac{q_{\theta}(z|x)}{q_{\theta}(z|x)}
+= \sum\limits_{z}p_{\theta}(x|z)p_{\theta}(z)\frac{q_{\theta}(z|x)}{q_{\theta}(z|x)}
 $$
 
 $$
 = E_{z\sim{q_{\theta}(z|x)}}[p_{\theta}(x|z)\frac{p_{\theta}(z)}{q_{\theta}(z|x)}]
 $$
 
-Then we're going to add $\log$ to compute our goal.
+Next, we apply the logarithm to the marginal likelihood $p_{\theta}(x)$ in order to derive an objective that we can optimize, specifically, the log-likelihood $\log{p_{\theta}(x)}$ which serves as our ultimate training goal.
 
 $$
-\log{p_{\theta}(x)} 
-$$
-
-$$
-= \log{E_{z\sim{q_{\theta}(z|x)}}[p_{\theta}(x|z)\frac{p_{\theta}(z)}{q_{\theta}(z|x)}]}
+\log{p_{\theta}(x)} = \log{E_{z\sim{q_{\theta}(z|x)}}[p_{\theta}(x|z)\frac{p_{\theta}(z)}{q_{\theta}(z|x)}]}
 $$
 
 By using Jensen's Inequality,
@@ -83,10 +79,25 @@ $$
 = E_{z\sim{q_{\theta}(z|x)}}[\log{p_{\theta}(x|z)}] - D_{KL}(q_{\theta}(z|x)||p_{\theta}(z))
 $$
 
-This is Evidence Lower Bound (ELBO). The first term $E_{z\sim{q_{\theta}(z|x)}}[\log{p_{\theta}(x|z)}]$ is called "reconstruction" term and the second term $D_{KL}(q_{\theta}(z|x)||p_{\theta}(z))$ is called "complexity" (or "regularization") term. 
-For the first term, if we set $p_{\theta}(x|z)$ as Gaussian distribution $N(\mu_{x|z}, I)$, then the reconstruction term is same as calculating Mean Squared Error (MSE) $||x-\hat{x}||^2_2$. 
-On the other hand, if $x\in{0,1}$, which is binary, then the reconstruction term is calculated as Binary Cross-Entropy term.
+This expression is known as the **Evidence Lower Bound (ELBO)**. It serves as a tractable lower bound on the true log-likelihood $\log{p_{\theta}(x)}$, which is typically intractable to compute directly.
+The ELBO consists of two main terms:
 
+**1. Reconstruction Term:**
+   
+$$
+E_{z\sim{q_{\theta}(z|x)}}[\log{p_{\theta}(x|z)}]
+$$
+
+This term encourages the model to accurately reconstruct the input $x$ from the latent variable $z$. If we model $p_{\theta}(x|z)$ as a Gaussian distribution $N(\mu_{x|z}, I)$, this expectation is equivalent to minimizing the Mean Squared Error (MSE) between the original input $x$ and the reconstruction $\hat{x}$.
+Alternatively, if $x\in{0,1}$ (i.e., binary data), p_{\theta}(x|z) is typically modeled as a Bernoulli distribution and the reconstruction term corresponds to the Binary Cross-Entropy (BCE) loss.
+
+**2. Regularization (or Complexity) Term:**
+
+$$
+D_{KL}(q_{\theta}(z|x)||p_{\theta}(z))
+$$
+
+This term measures how much the approximate posterior $q_{\theta}(z|x)$ deviates from the prior distribution $p(z)$, which is usually chosen to be a standard normal $N(0, I)$. It acts as a regularizer that encourages the latent space to follow the prior distribution, enabling structured and generalizable representations.
 
 If we set the prior $p_{\theta}(z)$ as standard Noraml distribution $N(0, I)$, and $q_{\theta}(z|x)$ to follow Gaussian distribution $N(\mu_{z|x}, \Sigma_{z|x})$, we can represent it in an closed form as follow:
 
@@ -107,6 +118,8 @@ $$
 $$
 
 where can can use backpropagation!
+
+Together, maximizing the ELBO balances accurate reconstruction of the data with maintaining a well-structured latent space.
 
 
 
