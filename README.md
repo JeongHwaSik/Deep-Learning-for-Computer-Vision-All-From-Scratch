@@ -2,8 +2,6 @@ Big thanks to Michigan Online, Andrej Karpathy, and Justin Johnson for creating 
 
 # Table of Contents
 
-### A0. [Useful Theories for Deep Learning]()
-
 ### A1. [K-NN Classifier](https://github.com/JeongHwaSik/cs231n/tree/main/A1#a1-k-nearest-neighbor-k-nn-classifier)
 
 ### A2. [Linear Classifier](https://github.com/JeongHwaSik/cs231n/tree/main/A2#a2-linear-classifier)
