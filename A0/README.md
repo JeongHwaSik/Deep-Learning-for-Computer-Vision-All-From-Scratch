@@ -101,6 +101,8 @@ This term measures how much the approximate posterior $q_{\theta}(z|x)$ deviates
 
 If we set the prior $p_{\theta}(z)$ as standard Noraml distribution $N(0, I)$, and $q_{\theta}(z|x)$ to follow Gaussian distribution $N(\mu_{z|x}, \Sigma_{z|x})$, we can represent it in an closed form as follow:
 
+If we set the prior $p_{\theta}(z)$ to be a standard normal distribution $N(0, I)$, and the model approximate posterior $q_{\theta}(z|x)$ as a Gaussian distribution $N(\mu_{z|x}, \Sigma_{z|x})$, then the KL divergence term in the ELBO can be computed in closed form as follows:
+
 $$
 D_{KL}(q_{\theta}(z|x)||p_{\theta}(z)) 
 $$
@@ -117,7 +119,7 @@ $$
 = \sum\limits_{j=1}^J(1 + \log((\sum_{z|x})^2_{j}) - (\mu_{z|x})^2_{j} - (\Sigma_{z|x})^2_{j})
 $$
 
-where can can use backpropagation!
+where can do backpropagation!
 
 Together, maximizing the ELBO balances accurate reconstruction of the data with maintaining a well-structured latent space.
 
