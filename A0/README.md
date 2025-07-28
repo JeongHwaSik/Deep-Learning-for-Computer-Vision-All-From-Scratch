@@ -107,8 +107,6 @@ $$
 
 This term measures how much the approximate posterior $q_{\theta}(z|x)$ deviates from the prior distribution $p(z)$, which is usually chosen to be a standard normal $N(0, I)$. It acts as a regularizer that encourages the latent space to follow the prior distribution, enabling structured and generalizable representations.
 
-If we set the prior $p_{\theta}(z)$ as standard Noraml distribution $N(0, I)$, and $q_{\theta}(z|x)$ to follow Gaussian distribution $N(\mu_{z|x}, \Sigma_{z|x})$, we can represent it in an closed form as follow:
-
 If we set the prior $p_{\theta}(z)$ to be a standard normal distribution $N(0, I)$, and the model approximate posterior $q_{\theta}(z|x)$ as a Gaussian distribution $N(\mu_{z|x}, \Sigma_{z|x})$, then the KL divergence term in the ELBO can be computed in closed form as follows:
 
 $$
