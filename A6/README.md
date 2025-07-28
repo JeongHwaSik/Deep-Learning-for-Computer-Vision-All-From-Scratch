@@ -1,7 +1,8 @@
 # A6. Generative Models & Visualization
 
 ## A6-1. Variational AutoEncoder (VAE)
-VAE, which stands for Variational AutoEncoder, is a type of generative model $p(x)$ that incorporates a probabilistic approach into the traditional autoencoder. 
+[VAE](https://arxiv.org/pdf/1312.6114), which stands for Variational AutoEncoder, is a type of generative model $p(x)$ that incorporates a probabilistic approach into the traditional autoencoder. 
+All the math behind VAE is based on Variational Inference. (See ELBO derivation in [here](https://github.com/JeongHwaSik/cs231n/blob/main/A0/README.md#variational-inference-vi)).
 Given an input $x$, the encoder compresses the data into a latent space $z$ represented as $q(z|x)$, while the decoder reconstructs $x$ from the latent representation $z$ as $p(x|z)$.
 Here, I used MNIST dataset to train the VAE. 
 (Conditional VAE is almost the same as VAE except that it has conditional input $x$ given $y$.)
